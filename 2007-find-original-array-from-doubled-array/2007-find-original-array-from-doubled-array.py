@@ -17,9 +17,7 @@ class Solution:
                     ans.append(val)
                     count[double] -= 1 #doulbe is used hence subtract 1 from freq of double
                 else: #val * 2 not in changed
-                    return []
-            else:  #if all occurences of val are used
-                continue
+                    return []      
                 
         return ans
         
