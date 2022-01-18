@@ -9,7 +9,7 @@ class Solution:
             freq = count[val] 
             
             if freq:#are there any unused occurences of val?
-                count[val] -= 1 #is used hence subtract 1 from freq of val
+                count[val] -= 1 #val is used hence subtract 1 from freq of val
                 double = 2 * val
                 double_idx = count.get(double)
                 
