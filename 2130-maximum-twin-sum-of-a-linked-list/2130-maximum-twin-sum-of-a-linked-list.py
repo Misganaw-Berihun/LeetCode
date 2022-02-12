@@ -8,16 +8,13 @@ class Solution:
         h1 = head
         fast = head
         slow = head
-        slow_pre = head
         twin_sum = 0
         
         #find the middle of the linked list
         while fast and fast.next:
             fast = fast.next.next
-            slow_pre = slow
             slow = slow.next
-        
-        slow_pre.next = None
+  
         cur = slow.next
         prev = slow
         
@@ -27,9 +24,11 @@ class Solution:
             cur.next = prev
             prev = cur
             cur = temp
+            
+        slow.next = None
          
         #sum each twin and find the max
-        while prev and h1:
+        while prev :
             twin_sum = max(twin_sum, prev.val + h1.val)
             h1 = h1.next
             prev = prev.next
