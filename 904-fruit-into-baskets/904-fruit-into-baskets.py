@@ -9,13 +9,11 @@ class Solution:
             occurence[fruits[j]] += 1
             
             if len(occurence) > 2:
-                while i <= j and i < len(fruits) and occurence[fruits[i]] != 1:
+                while i < len(fruits) and occurence[fruits[i]] != 1:
                     occurence[fruits[i]] -= 1
                     i += 1
                 
-                if i < len(fruits):
-                    occurence.pop(fruits[i])
-                    
+                occurence.pop(fruits[i]) 
                 length = j - i
                 i += 1
             else:
