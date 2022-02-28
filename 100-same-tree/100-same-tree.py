@@ -10,12 +10,12 @@ class Solution:
             return True
         elif p is None or q is None:
             return False
-        else:
-            if p.val != q.val:
-                return False
-            else:
-                left = self.isSameTree(p.left,q.left)
-                right = self.isSameTree(p.right,q.right)
+        
+        if p.val != q.val:
+            return False
+        
+        left = self.isSameTree(p.left,q.left)
+        right = self.isSameTree(p.right,q.right)
                 
-            return left and right
+        return left and right
         
