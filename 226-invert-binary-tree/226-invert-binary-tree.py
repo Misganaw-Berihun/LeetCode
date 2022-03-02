@@ -11,11 +11,9 @@ class Solution:
                 return rt
             
             temp = rt.left
-            rt.left = rt.right
-            rt.right = temp
-            
-            invert(rt.left)
-            invert(rt.right)
+            rt.left = invert(rt.right)
+            rt.right = invert(temp)
+                        
             return rt
         
         return invert(root)
