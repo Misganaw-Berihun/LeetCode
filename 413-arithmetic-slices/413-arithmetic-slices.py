@@ -1,24 +1,17 @@
 class Solution:            
     def numberOfArithmeticSlices(self, nums: List[int]) -> int:
-        ret = 0
-        ans = []
-        i = 1
         
-        while i < len(nums):
-            dif = nums[i] - nums[i - 1]
-            cnt = 1
-            
-            while i < len(nums) and nums[i] - nums[i-1] == dif:
+        ans = 0
+        cnt = 0
+        for i in range(1,len(nums)-1):
+            if nums[i-1] - nums[i] == nums[i] - nums[i+1]:
                 cnt += 1
-                i += 1
-                
-            ans.append(cnt)
+            else:
+                cnt = 0
             
-        for i in range(len(ans)):
-            for j in range(3,ans[i] + 1):
-                ret += ans[i] - j + 1
-
-        return ret
+            ans += cnt
+                        
+        return ans
                 
             
                 
