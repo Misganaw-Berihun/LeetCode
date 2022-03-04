@@ -4,11 +4,12 @@ class Solution:
         fre_val = []
         
         for i,v in freq.items():
-            heapq.heappush(fre_val,(v,i))
-            k -= 1
+            if k>0:
+                heapq.heappush(fre_val,(v,i))
+                k -= 1
             
-            if k < 0:
-                heapq.heappop(fre_val)
+            elif k == 0:
+                heapq.heappushpop(fre_val,(v,i))
             
         return list(map(lambda a: a[1] ,fre_val))
                 
