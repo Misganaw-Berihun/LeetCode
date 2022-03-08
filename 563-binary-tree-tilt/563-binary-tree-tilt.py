@@ -7,19 +7,15 @@
 class Solution:
     def findTilt(self, root: Optional[TreeNode]) -> int:
         def tilt(rt):
-            if not rt.left and not rt.right:
-                return rt.val
+            if not rt:
+                return 0
             
             left = tilt(rt.left) if rt.left else 0
             right = tilt(rt.right) if rt.right else 0
             
-            t = abs(right - left)
-            self.total += t
+            self.total  += abs(right - left)
             
             return rt.val + left + right
-        
-        if not root or (not root.left and not root.right):
-            return 0
         
         self.total = 0
         tilt(root)
