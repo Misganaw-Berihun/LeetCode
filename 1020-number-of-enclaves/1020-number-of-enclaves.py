@@ -38,7 +38,7 @@ class Solution:
                 
         for i in range(n):
             for j in range(m):
-                if grid[i][j] == 1 and (i,j) not in visited:
+                if isValid(i,j):
                     cnt += 1
                     
         return cnt
