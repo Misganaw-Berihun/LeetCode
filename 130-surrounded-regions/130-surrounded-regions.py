@@ -3,6 +3,9 @@ class Solution:
         """
         Do not return anything, modify board in-place instead.
         """
+        def isValid(i,j):
+            return (i,j) not in visited and board[i][j] == 'O'
+            
         def dfs(i,j):
             visited.add((i,j))
             
@@ -24,19 +27,15 @@ class Solution:
         
         
         for i in range(n):
-            if (i,0) not in visited and board[i][0] == 'O':
+            if isValid(i,0):
                 dfs(i,0)
-                
-        for i in range(m):
-            if (0,i) not in visited and board[0][i] == 'O':
-                dfs(0,i)
-                
-        for i in range(n):
-            if (i,m-1) not in visited and board[i][m-1] and board[i][m-1] == 'O':
+            if isValid(i,m-1):
                 dfs(i,m-1)
-            
+                
         for i in range(m):
-            if (n-1,i) not in visited and board[n-1][i] == 'O':
+            if isValid(0,i):
+                dfs(0,i)
+            if isValid(n-1,i):
                 dfs(n-1,i)
                 
         for i in range(n):
