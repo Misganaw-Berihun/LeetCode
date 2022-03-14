@@ -9,8 +9,6 @@ class Solution:
         def dfs(rt,depth):
             if not rt:
                 return (rt,depth - 1)
-            if not rt.left and not rt.right:
-                return (rt,depth)
             
             left = dfs(rt.left,depth + 1)
             right = dfs(rt.right,depth + 1)
