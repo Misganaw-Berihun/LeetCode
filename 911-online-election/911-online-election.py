@@ -3,14 +3,15 @@ class TopVotedCandidate:
     def __init__(self, persons: List[int], times: List[int]):
         self.persons = persons
         self.times = times
+        
         self.d = defaultdict(int)
         self.d2 = defaultdict(int)
-        cnt = 1
         j = 0
         mcnt = 1
         
         for i in range(len(self.persons)):
             cnt = self.d2[self.persons[i]] + 1
+            
             if cnt >= mcnt:
                 self.d[i] = i
                 mcnt = cnt 
