@@ -1,8 +1,7 @@
 class Solution:
     def smallestDivisor(self, nums: List[int], threshold: int) -> int:
-        ans = float('inf')
         left = 1
-        right = max(nums)
+        right = 1e6
         
         while left <= right:
             mid = left + (right - left) // 2
@@ -12,11 +11,11 @@ class Solution:
                 cnt += ceil(v/mid)
                 
             if cnt <= threshold:
-                ans = min(ans,mid)
                 right = mid - 1
                 
             elif cnt > threshold:
                 left = mid + 1
             
-            
-        return ans
+        return int(left)
+        
+        
