@@ -14,38 +14,33 @@
  * }
  */
 class Solution {
-    public void insert(TreeNode root, int val){
-        TreeNode prev = null, cur = root;
-        boolean isLeft = true;
-        
-        while (cur != null){
-            prev = cur;
-            if (cur.val > val){
-                cur = cur.left;
-                isLeft = true;
-            }
-            else if (cur.val < val){
-                cur = cur.right;
-                isLeft = false;
-            }
-        }
-        
-        if (prev == null){
-            root = new TreeNode(val); 
-        }
-        else if (isLeft){
-            prev.left = new TreeNode(val);
-        }
-        else{
-            prev.right = new TreeNode(val);
-        }
-    }
-    
-    public TreeNode bstFromPreorder(int[] preorder) {
+    public TreeNode bstFromPreorder(int[] preorder)
+    {
+        Stack<TreeNode> stk = new Stack<>();
+        TreeNode cur = null;
         TreeNode root = new TreeNode(preorder[0]);
-        for (int i = 1; i < preorder.length; ++i){
-            insert(root, preorder[i]);
+        
+        stk.push(root);
+        for (int i = 1; i < preorder.length; i++)
+        {
+            cur = new TreeNode(preorder[i]);
+        
+            if (!stk.empty() && stk.peek().val > cur.val)
+            {
+                    stk.peek().left = cur;
+                    stk.push(cur);
+            }
+            else  if (!stk.empty() && stk.peek().val < cur.val)
+            {
+                TreeNode top = null;
+                while(!stk.empty() && stk.peek().val < cur.val )
+                {                
+                    top = stk.pop();
+                }
+                top.right = cur;
+                stk.push(cur);
+            }
         }
-        return root;
+        return root;        
     }
 }
