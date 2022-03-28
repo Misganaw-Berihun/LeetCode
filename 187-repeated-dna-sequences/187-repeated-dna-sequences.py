@@ -4,10 +4,7 @@ class Solution:
         ans = []
         
         for i in range(len(s) - 9):
-            temp = ""
-            for  j in range(10):
-                temp += s[i + j]
-                
+            temp = s[i: i + 10]
             seen_before = occured.get(temp)
             if seen_before == None:
                 occured[temp] = 1
