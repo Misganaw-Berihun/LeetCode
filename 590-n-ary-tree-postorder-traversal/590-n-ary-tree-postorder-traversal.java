@@ -18,18 +18,20 @@ class Node {
 */
 
 class Solution {
-    private ArrayList<Integer> result = new ArrayList<>();
-    private void dfs(Node root){
-        if (root == null){
-            return;
-        }
-        for (Node child : root.children){
-            dfs(child);
-        }
-        result.add(root.val);
-    }
-    public List<Integer> postorder(Node root) {
-        dfs(root);
-        return result;
+     public List<Integer> postorder(Node root) {
+         if (root == null) return new ArrayList<>();
+        ArrayList<Integer> result = new ArrayList<>();
+        Stack<Node> stk = new Stack<>();
+         stk.push(root);
+         
+         while (!stk.empty()){
+             Node cur = stk.pop();
+             for (Node child: cur.children){
+                 stk.push(child);
+             }
+             result.add(cur.val);
+         }
+        Collections.reverse(result);
+         return result;
     }
 }
