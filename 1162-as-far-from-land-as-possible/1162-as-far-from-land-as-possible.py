@@ -1,7 +1,7 @@
 class Solution:
     def maxDistance(self, grid: List[List[int]]) -> int:
         def bfs():
-            temp = []
+            temp = (-1,-1)
             dist = 0
             
             while queue:
@@ -16,10 +16,8 @@ class Solution:
                             continue
                         queue.append((r, c))
                         seen.add((r, c))
-                        temp.append((r, c))
-            if not temp:
-                return (-1 , -1)
-            return temp[-1]
+                        temp = (r , c)
+            return temp
         
         m = len(grid)
         seen = set()
