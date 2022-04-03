@@ -4,6 +4,9 @@ class Solution:
             visited.add(src)
             
             for edge in adj_list[src]:
+                if edge == destination:
+                    visited.add(edge)
+                    break
                 if edge not in visited:
                     dfs(adj_list, edge)
                     
