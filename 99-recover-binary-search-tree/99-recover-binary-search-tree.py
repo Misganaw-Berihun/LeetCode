@@ -14,22 +14,22 @@ class Solution:
                 return
             
             inorder(rt.left)
-            inord.append(rt)
+            if self.first == None and self.prev.val >= rt.val:
+                self.first = self.prev
+                
+            if self.first != None and self.prev.val >= rt.val:
+                self.second = rt
+                
+            self.prev = rt
+                
             inorder(rt.right)
             
-        inord = []
-        inorder(root)
-        p1, p2 = None, None
+        self.prev = TreeNode(float('-inf'))
+        self.first = None
+        self.second = None
         
-        for i in range(1,len(inord)):
-            if inord[i].val < inord[i - 1].val:
-                if not p1:
-                    p1 = inord[i-1]
-                p2 = inord[i]
-                
-        temp = p1.val
-        p1.val = p2.val
-        p2.val = temp
+        inorder(root)
+        self.first.val, self.second.val = self.second.val, self.first.val
         
                     
                 
