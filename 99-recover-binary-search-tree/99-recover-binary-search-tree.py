@@ -14,10 +14,10 @@ class Solution:
                 return
             
             inorder(rt.left)
-            if self.first == None and self.prev.val >= rt.val:
+            if self.first == None and self.prev.val > rt.val:
                 self.first = self.prev
                 
-            if self.first != None and self.prev.val >= rt.val:
+            if self.first != None and self.prev.val > rt.val:
                 self.second = rt
                 
             self.prev = rt
