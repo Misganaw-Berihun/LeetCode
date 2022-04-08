@@ -1,9 +1,12 @@
 class Solution:
     def fib(self, n: int) -> int:
-        if n == 0:
-            return 0
-        elif n == 1:
-            return 1
-        else:
-            return self.fib(n-1) + self.fib(n-2)
+        def f(n):
+            if n < 2:
+                return n
+            elif n not in cache:
+                cache[n] = f(n-1) + f(n-2)
+            return cache[n]
+        cache = {}
+        
+        return f(n)
         
