@@ -15,12 +15,12 @@ class Solution:
             if prev == "s":
                 ans = max(ans, jmp)
             elif prev == "b":
-                ans = max(ans, sell, jmp)
+                ans = max(sell, jmp)
             elif prev == "j":
                 if is_bought:
-                    ans = max(ans, sell, jmp)
+                    ans = max(sell, jmp)
                 else:
-                    ans = max(ans, jmp, buy)
+                    ans = max(jmp, buy)
             return ans
         
         return dp(0, "j", False)
