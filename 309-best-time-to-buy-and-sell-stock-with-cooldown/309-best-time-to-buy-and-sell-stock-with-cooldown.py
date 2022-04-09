@@ -13,7 +13,7 @@ class Solution:
             jmp = dp(i + 1, "j", is_bought)
             
             if prev == "s":
-                ans = max(ans, jmp)
+                ans = jmp
             elif prev == "b":
                 ans = max(sell, jmp)
             elif prev == "j":
