@@ -5,9 +5,7 @@ class Solution:
         def dp(i, prev, is_bought):
             nonlocal n
             ans = 0
-            if i == n - 1:
-                if prev == "b" or (prev == "j" and is_bought):
-                    ans = max(ans, prices[i])#sell
+            if i >= n:
                 return ans
             
             sell = dp(i + 1, "s", False) + prices[i]
