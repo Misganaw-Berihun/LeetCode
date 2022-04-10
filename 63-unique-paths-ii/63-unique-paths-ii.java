@@ -4,19 +4,19 @@ class Solution {
         if (obstacleGrid[0][0] == 1 || obstacleGrid[n - 1][m - 1] == 1){
             return 0;
         }
-        int [][] dp = new int[n + 1][m + 1];
+        int [] dp = new int[m];
         for(int i = 0; i < n; i++){
             for(int j = 0; j < m; j++){
                 if (i == 0 && j == 0) {
-                    dp[i + 1][j + 1] = 1;
+                    dp[j] = 1;
                 }else if(obstacleGrid[i][j] == 1){
-                    dp[i + 1][j + 1] = 0;
+                    dp[j] = 0;
                 }
-                else{
-                    dp[i + 1][j + 1] = dp[i + 1][j] + dp[i ][j + 1];
+                else if (j > 0){
+                    dp[j] = dp[j] + dp[j - 1];
                 } 
             }
         }
-        return dp[n][m];
+        return dp[m - 1];
     }
 }
