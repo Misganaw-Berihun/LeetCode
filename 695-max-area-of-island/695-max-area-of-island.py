@@ -33,6 +33,7 @@ class Solution:
         direction = [(-1, 0), (1, 0), (0, 1), (0, -1)]
         inbound = lambda r, c: 0 <= r < len(grid) and 0 <= c < len(grid[0])
         ans = defaultdict(int)
+        ret = 0
         
         for i in range(len(grid)):
             for j in range(len(grid[0])):
@@ -48,7 +49,7 @@ class Solution:
             for j in range(len(grid[0])):
                 if grid[i][j] == 1:
                     ans[uf.find((i,j))] += 1
-        if len(ans) == 0:
-            return 0
-        return max(ans.values())
+                    ret = max(ret, ans[uf.find((i, j))])
+    
+        return ret
                 
