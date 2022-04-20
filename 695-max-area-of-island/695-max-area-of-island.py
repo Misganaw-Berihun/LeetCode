@@ -1,12 +1,12 @@
 class UnionFind:
     def __init__(self, max_row, max_col, grid):
         self.parent = {}
-        self.rank = {}
+        self.size = {}
         for i in range(max_row):
             for j in range(max_col):
                 if grid[i][j] == 1:
                     self.parent[(i,j)] = (i, j)
-                    self.rank[(i, j)] = 0
+                    self.size[(i, j)] = 1
     
     def find(self, v):
         if self.parent[v] == v:
@@ -19,11 +19,11 @@ class UnionFind:
         par_b = self.find(b)
         
         if par_a != par_b:
-            if self.rank[par_a] > self.rank[par_b]:
+            if self.size[par_a] > self.size[par_b]:
                 par_a, par_b = par_b, par_a
             self.parent[par_a] = par_b
-            if self.rank[par_a] == self.rank[par_b]:
-                self.rank[par_b] += 1
+            self.size[par_b] += self.size[par_a]
+        return self.size[par_b]
                 
     def getParent(self):
         return self.parent
@@ -39,14 +39,11 @@ class Solution:
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if grid[i][j] == 1:
+                    ret = 1 if ret == 0 else ret
                     for d in direction:
                         r = i + d[0]
                         c = j + d[1]
                         if inbound(r, c) and grid[r][c] == 1:
-                            uf.union((i, j), (r, c))
-        
-        for k in uf.getParent():
-            ans[uf.find(k)] += 1
-            ret = max(ret, ans[uf.find(k)])
+                            ret = max(ret, uf.union((i, j), (r, c)))
         return ret
                 
