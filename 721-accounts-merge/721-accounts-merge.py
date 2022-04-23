@@ -2,7 +2,6 @@ class UnionFind:
     def __init__(self, size):
         self.parent = {i: i for i in range(size)}
         self.size = {i : 1 for i in range(size)}
-        self.res = defaultdict(set)
         
     def find(self, v):
         if self.parent[v] == v:
@@ -10,12 +9,10 @@ class UnionFind:
         self.parent[v] = self.find(self.parent[v])
         return self.parent[v]
         
-    def union(self, user1, user2, accounts):
+    def union(self, user1, user2):
         user1_par = self.find(user1)
         user2_par = self.find(user2)
         
-        if self.res.get(user2_par):
-            self.res.pop(user2_par)
         if user1_par != user2_par:
             if self.size[user1_par] < self.size[user2_par]:
                 user1_par, user2_par = user2_par, user1_par
@@ -34,7 +31,7 @@ class Solution:
             for j in range(1, len(accounts[i])):
                 v = accounts[i][j]
                 if user_email.get(v) != None and user_email.get(v) != i:
-                    uf.union(user_email[v], i, accounts)
+                    uf.union(user_email[v], i)
                 else:
                     user_email[v] = i  
         
