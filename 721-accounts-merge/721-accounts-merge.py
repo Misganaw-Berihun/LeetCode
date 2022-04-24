@@ -30,7 +30,7 @@ class Solution:
         for i in range(n):
             for j in range(1, len(accounts[i])):
                 v = accounts[i][j]
-                if user_email.get(v) != None and user_email.get(v) != i:
+                if user_email.get(v) != None:
                     uf.union(user_email[v], i)
                 else:
                     user_email[v] = i  
