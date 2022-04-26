@@ -3,18 +3,15 @@ class Solution:
         recipies = set(recipes)
         ans = []
         adjacency_list = defaultdict(list)
-        indegree = {recipes[i] : 0 for i in range(len(recipes))}
-        queue = deque()
+        indegree = defaultdict(int)
+        queue = deque(supplies)
         
         for i in range(len(recipes)):
             recipe = recipes[i]
             for ingre in ingredients[i]:
                 adjacency_list[ingre].append(recipe)
                 indegree[recipe] += 1
-        
-        for sup in supplies:
-            queue.append(sup)
-            
+                
         while queue:
             cur = queue.popleft()
             if cur in recipies:
