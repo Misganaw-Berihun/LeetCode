@@ -23,8 +23,6 @@ class Trie:
             temp = word
             if len(temp) > len(self.ans):
                 self.ans = temp
-            else:
-                self.ans = min(self.ans, temp) 
             
     def getAns(self):
         return self.ans
