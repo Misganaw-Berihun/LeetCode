@@ -21,7 +21,10 @@ class Trie:
         cur.is_word = True
         if cnt == len(word) - 1:
             temp = word
-            self.ans = temp if len(temp) > len(self.ans) else min(self.ans, temp)
+            if len(temp) > len(self.ans):
+                self.ans = temp
+            else:
+                self.ans = min(self.ans, temp) 
             
     def getAns(self):
         return self.ans
