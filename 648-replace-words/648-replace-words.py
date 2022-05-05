@@ -1,7 +1,6 @@
 class TrieNode:
     def __init__(self):
         self.children = {}
-        self.is_word = False
         self.index = -1
         
 class Trie:
@@ -14,13 +13,12 @@ class Trie:
             if w not in cur.children:
                 cur.children[w] = TrieNode()
             cur = cur.children[w]
-        cur.is_word = True
         cur.index = idx
         
     def search_word(self, word):
         cur = self.root
         for w in word:
-            if cur.is_word:
+            if cur.index >= 0:
                 return cur.index
             if w not in cur.children:
                 return -1
