@@ -30,10 +30,7 @@ class Solution:
         for let in searchWord:
             t += let
             temp = sorted(node.prefixes[t])
-            if len(temp) < 3:
-                ans.append(temp)
-            else:
-                ans.append(temp[:3])
+            ans.append(temp[:3])
                 
         return ans
             
