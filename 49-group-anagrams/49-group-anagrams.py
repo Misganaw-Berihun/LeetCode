@@ -3,5 +3,5 @@ class Solution:
         d = defaultdict(list)
         for str in strs:
             d[''.join(sorted(str))].append(str)
-        return list(d.values())
+        return d.values()
         
