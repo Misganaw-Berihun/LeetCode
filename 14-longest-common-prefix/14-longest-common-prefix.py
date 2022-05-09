@@ -1,36 +1,21 @@
-class TrieNode:
-    def __init__(self):
-        self.children = {}
-        self.isword = False
-        
-class Trie:
-    def __init__(self):
-        self.root = TrieNode()
-    
-    def insert(self, word):
-        cur = self.root
-        for w in word:
-            if w not in cur.children:
-                cur.children[w] = TrieNode()
-            cur = cur.children[w]
-        cur.isword = True
-        
-    def commonPrefix(self):
-        cur = self.root
-        pre = ""
-        while len(cur.children) == 1 and not cur.isword:
-            p = list(cur.children.keys())[0]
-            pre += p
-            cur = cur.children[p]
-        return pre
-            
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
-        node = Trie()
-        for i in range(len(strs)):
-            if strs[i] == "":
-                return ""
-            node.insert(strs[i])
-            
-        return node.commonPrefix()
+        def findPre(left, right):
+            pre = ""
+            for i in range(min(len(left), len(right))):
+                if left[i] == right[i]:
+                    pre += left[i]
+                else:
+                    break
+            return pre
+        
+        def divideAndConcur(start, end):
+            if start == end:
+                return strs[start]
+            mid = start + (end - start) // 2
+            left_half = divideAndConcur(start, mid)
+            right_half = divideAndConcur(mid + 1, end)
+            return findPre(left_half, right_half)
+        
+        return divideAndConcur(0, len(strs) - 1)
         
