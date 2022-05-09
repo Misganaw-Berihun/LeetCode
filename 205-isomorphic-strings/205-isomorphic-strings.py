@@ -1,12 +1,23 @@
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
-        dict_s = defaultdict(list)
-        dict_t = defaultdict(list)
-        
-        for i in range(len(s)):
-            dict_s[s[i]].append(i)
-            dict_t[t[i]].append(i)
-        
-        return sorted(list(dict_s.values())) == sorted(list(dict_t.values()))
+        n =len(s)
+        dict_ = {}
+        for i in range(n):
+            if s[i] not in dict_:
+                if t[i] in dict_.values():
+                    return False
+                dict_[s[i]] = t[i]
+            else:
+                if dict_[s[i]] != t[i] :
+                    return False
+        return True
+                
+            
+                
+                
+            
+ 
+                
+             
             
         
