@@ -1,5 +1,13 @@
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
+        def findComb(i, s):
+            if i < 0:
+                ans.append(''.join(s))
+                return 
+            for ch in references[digits[i]]:
+                s[i] = ch
+                findComb(i - 1, s)
+        
         references = {
                             "2" : ["a", "b", "c"],
                             "3": ["d", "e", "f"],
@@ -11,14 +19,6 @@ class Solution:
                             "9": ["w", "x", "y","z"]
                         }
         ans = []
-        def findComb(i, s):
-            if i < 0:
-                ans.append(''.join(s))
-                return 
-            for ch in references[digits[i]]:
-                s[i] = ch
-                findComb(i - 1, s)
-        
         if digits == "":
             return []
         temp = [0 for i in range(len(digits))]
