@@ -8,17 +8,6 @@ class Solution {
             arr[j--] = temp;
         }
     }
-    
-    private static int maxUpTo(int [] arr, int range)
-    {
-        int maxIdx = 0;
-        for( int j = 1 ;  j <= range ; ++j )
-            {
-                 maxIdx = (arr[j] > arr[maxIdx])? j : maxIdx;
-            }
-        return maxIdx;
-    }
-    
     public List<Integer> pancakeSort(int[] arr)
     {
         int n = arr.length;
@@ -26,7 +15,11 @@ class Solution {
     
         for( int i = n - 1 ;  i >= 0 ;  --i )
         {
-            int maxIdx = maxUpTo(arr, i);
+            int maxIdx = 0;
+            for( int j = 1 ;  j <= i ; ++j )
+            {
+                maxIdx = (arr[j] > arr[maxIdx])? j : maxIdx;
+            }
             if (maxIdx == i) 
             {
                 continue;
