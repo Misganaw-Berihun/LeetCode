@@ -2,11 +2,12 @@ class UnionFind:
     def __init__(self):
         self.parent = {}
         self.size = {}
-        self.max_size = 1
+        self.max_size = 0
         
     def makeSet(self, val):
         self.parent[val] = val
         self.size[val] = 1
+        self.max_size = 1
         
     def find(self, v):
         if self.parent[v] == v:
@@ -30,8 +31,6 @@ class UnionFind:
         
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        if len(nums) == 0:
-            return 0
         occur = set(nums)
         n = len(nums)
         uf = UnionFind()
