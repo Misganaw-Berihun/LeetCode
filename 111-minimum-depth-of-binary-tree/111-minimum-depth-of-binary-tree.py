@@ -8,9 +8,22 @@ class Solution:
     def minDepth(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0
-        left = self.minDepth(root.left)
-        right = self.minDepth(root.right)
-        if not root.left or not root.right:
-            return 1  +  left + right
-        return min(left, right) + 1
+        stk = []
+        stk.append((root, 1))
+        res = float('inf')
+        
+        while stk:
+            node, level = stk.pop()
+            
+            if node and not node.left and not node.right:
+                res = min(res, level)
+            if node:
+                if node.left:
+                    stk.append((node.left, level + 1))
+                if node.right:
+                    stk.append((node.right, level + 1))
+                    
+        return res
+            
+            
         
