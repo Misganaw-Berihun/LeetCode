@@ -8,23 +8,11 @@ class Solution:
     def minDepth(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0
-        queue = deque()
-        level = 0
-        queue.append(root)
-        
-        while queue:
-            n = len(queue)
-            level += 1
-            
-            for i in range(n):
-                cur = queue.popleft()
-                if not cur.left and not cur.right:
-                    return level
-                if cur.left:    
-                    queue.append(cur.left)
-                if cur.right:
-                    queue.append(cur.right)
-                
-        return level
-            
+        if not root.left:
+            return 1 + self.minDepth(root.right)
+        if not root.right:
+            return 1  + self.minDepth(root.left)
+        left = 1 + self.minDepth(root.left)
+        right = 1 + self.minDepth(root.right)
+        return min(left, right)
         
