@@ -10,8 +10,9 @@ class Solution:
 
             shortest = float('inf')
             for i in range(len(coins)):
-                if coins[i] <= target and dp(target - coins[i]) >= 0:
-                        shortest = min(shortest, dp(target - coins[i]) + 1)
+                rec = dp(target - coins[i])
+                if coins[i] <= target and rec >= 0:
+                        shortest = min(shortest, rec + 1)
             memo[target] = shortest
             return shortest
         memo = {}
