@@ -1,19 +1,20 @@
 class MapSum:
 
     def __init__(self):
+        self.score = {}
         self.map = {}
         
 
     def insert(self, key: str, val: int) -> None:
+        delta = val - self.map.get(key, 0)
         self.map[key] = val
+        pre = ""
+        for c in key:
+            pre += c
+            self.score[pre] = self.score.get(pre, 0) + delta        
         
-
     def sum(self, prefix: str) -> int:
-        ret = 0
-        for k in self.map.keys():
-            if k.startswith(prefix):
-                ret += self.map[k]
-        return ret
+        return self.score.get(prefix, 0)
         
 
 
