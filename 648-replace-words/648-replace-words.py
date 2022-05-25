@@ -1,7 +1,7 @@
 class TrieNode:
     def __init__(self):
         self.children = {}
-        self.isword = False
+        self.word = ""
     
 class Solution:
     def __init__(self):
@@ -13,17 +13,16 @@ class Solution:
             if w not in cur.children:
                 cur.children[w] = TrieNode()
             cur = cur.children[w]
-        cur.isword = True
+        cur.word = word
         
     def replace(self, word):
         cur, rep = self.root, []
         for w in word:
-            if w not in cur.children:
-                return None
+            if w not in cur.children or len(cur.word) > 0:
+                break
             rep.append(w)
             cur = cur.children[w]
-            if cur.isword:
-                return ''.join(rep)
+        return cur.word if len(cur.word)>0 else word
             
     def replaceWords(self, dictionary: List[str], sentence: str) -> str:
         words = sentence.split()
@@ -31,19 +30,7 @@ class Solution:
         for root in dictionary:
             self.insert(root)
         
-        for i in range(n):
-            word = words[i]
-            rep = self.replace(word)
-            
-            if rep:
-                ans += rep
-            else:
-                ans += word
-                
-            if i != n - 1:
-                ans += ' '
-                
-        return ans
+        return ' '.join(map(self.replace, words))
         
         
         
