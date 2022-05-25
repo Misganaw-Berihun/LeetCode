@@ -1,20 +1,33 @@
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.score = 0      
+        
 class MapSum:
 
     def __init__(self):
-        self.score = {}
+        self.root = TrieNode()
         self.map = {}
         
 
     def insert(self, key: str, val: int) -> None:
         delta = val - self.map.get(key, 0)
         self.map[key] = val
-        pre = ""
-        for c in key:
-            pre += c
-            self.score[pre] = self.score.get(pre, 0) + delta        
+        cur = self.root
+        for k in key:
+            if k not in cur.children:
+                cur.children[k] = TrieNode()
+            cur = cur.children[k]
+            cur.score += delta
         
+
     def sum(self, prefix: str) -> int:
-        return self.score.get(prefix, 0)
+        cur = self.root
+        for p in prefix:
+            if p not in cur.children:
+                return 0
+            cur = cur.children[p]
+        return cur.score
         
 
 
