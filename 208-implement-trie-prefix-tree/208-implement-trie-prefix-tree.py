@@ -15,19 +15,23 @@ class Trie:
                 cur.children[w] = TrieNode()
             cur = cur.children[w]
         cur.isword = True
-        
-
-    def search(self, word: str, prefix = False) -> bool:
+    
+    def helper(self, prefix):
         cur = self.root
-        for let in word:
+        for let in prefix:
             if let not in cur.children:
-                return False
+                return None
             cur = cur.children[let]
-        return cur.isword or prefix
-
+        return cur
+        
+    def search(self, word: str) -> bool:
+        node = self.helper(word)
+        return node != None and node.isword; 
+        
     def startsWith(self, prefix: str) -> bool:
-        return self.search(prefix, True)
-
+        node = self.helper(prefix)
+        return node != None
+      
 
 
 # Your Trie object will be instantiated and called as such:
