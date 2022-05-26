@@ -1,12 +1,7 @@
 class Solution:
     def numSquares(self, n: int) -> int:
         perfect = []
-        i = 1
         queue = deque()
-        while i * i <= n:
-            perfect.append(i * i)
-            i += 1
-          
         queue.append(n)
         depth = 0
         while queue:
@@ -15,8 +10,8 @@ class Solution:
             
             for k in range(m):
                 cur = queue.popleft()
-                for l in range(len(perfect)):
-                    dif = cur - perfect[l]
+                for l in range(1, int(sqrt(n)) + 1):
+                    dif = cur - l * l
                     if dif == 0:
                         return depth
                     if dif > 0:
