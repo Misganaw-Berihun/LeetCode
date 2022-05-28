@@ -4,11 +4,16 @@ class Solution {
         Set<String> begin = new HashSet();
         Set<String> end = new HashSet();
         Set<String> deadSet = new HashSet(Arrays.asList(deadends));
+        Set<String> temp;
         begin.add("0000");
         end.add(target);
         while (!begin.isEmpty() || !end.isEmpty()){
-            Set<String> temp = new HashSet();
-            
+            if (begin.size() < end.size()){
+                temp = begin;
+                begin = end;
+                end = temp;
+            }
+            temp = new HashSet();
             for (String s: begin){
                 if (end.contains(s)) return ans;
                 if (deadSet.contains(s)) continue;
