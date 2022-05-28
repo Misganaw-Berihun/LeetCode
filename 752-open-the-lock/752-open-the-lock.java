@@ -1,41 +1,34 @@
 class Solution {
     public int openLock(String[] deadends, String target) {
-        Set <String> deadset = new HashSet();
-        Set <String> visited = new HashSet();
         int ans = 0;
-        ArrayDeque<String> queue = new ArrayDeque();
-        queue.addLast("0000");
-        visited.add("0000");
-        
-        for (String deadend : deadends){
-            deadset.add(deadend);
-        }
-        if (deadset.contains("0000")){
-            return -1;
-        }
-        while (!queue.isEmpty()){
-            int n = queue.size();
-            ans++;
+        Set<String> begin = new HashSet();
+        Set<String> end = new HashSet();
+        Set<String> deadSet = new HashSet(Arrays.asList(deadends));
+        begin.add("0000");
+        end.add(target);
+        while (!begin.isEmpty() || !end.isEmpty()){
+            Set<String> temp = new HashSet();
             
-            for(int i = 0; i < n ; i++){
-                StringBuilder current = new StringBuilder(queue.pollFirst());
-                if (current.toString().equals(target)){
-                    return ans - 1;
-                }
-                for (int k = 0 ; k < 4; k++){
-                    char ch = current.charAt(k);
-                    String build = current.substring(0, k) + ( ch == '9' ? 0 :  ch - '0' + 1)  + current.substring(k + 1);
-                    if (!deadset.contains(build) && !visited.contains(build)){
-                        queue.addLast(build);
-                        visited.add(build);
-                    }
-                    build = current.substring(0, k) + ( ch == '0' ? 9 :  (ch - '0' - 1)) + current.substring(k + 1);
-                    if (!deadset.contains(build) && !visited.contains(build)){
-                        queue.addLast(build);
-                        visited.add(build);
-                    }
+            for (String s: begin){
+                if (end.contains(s)) return ans;
+                if (deadSet.contains(s)) continue;
+                deadSet.add(s);
+                
+                StringBuilder sb = new StringBuilder(s);
+                for (int i = 0; i < 4; i++){
+                    char ch = s.charAt(i);
+                    String s1 = sb.substring(0 , i)  +  (ch == '9'? 0 : ch - '0' + 1) + sb.substring(i + 1);
+                    String s2 = sb.substring(0,  i)  +  (ch == '0' ? 9: ch - '0'  - 1) + sb.substring(i + 1);
+                    
+                    if (!deadSet.contains(s1))
+                        temp.add(s1);
+                    if (!deadSet.contains(s2))
+                        temp.add(s2);
                 }
             }
+            begin = end;
+            end = temp;
+            ans ++;
         }
         return -1;
     }
