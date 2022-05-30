@@ -7,7 +7,6 @@
 class Solution:
     def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
         def construct(left, right):
-            nonlocal n
             if left > right:
                     return None
             mid = (left + right) // 2
