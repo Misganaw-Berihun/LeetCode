@@ -1,20 +1,17 @@
 class Solution {
-    private static void findComb(List<List<Integer>> comb, int i, int n, int k, ArrayList<Integer> c){
-        if (k == 0){
-            comb.add(new ArrayList(c));
-            return;
-        }
-        
-        if (i + k -1 <= n){
-            findComb(comb, i + 1, n, k, c);
-            c.add(i);
-            findComb(comb, i + 1, n, k -1 , new ArrayList(c));
-            c.remove(c.size() - 1);
-        }
-    }
     public List<List<Integer>> combine(int n, int k) {
         List<List<Integer>> comb = new ArrayList<List<Integer>>();
-        findComb(comb, 1, n, k, new ArrayList<Integer>());
-        return comb;
+        List<Integer> arr = new ArrayList<Integer>(Collections.nCopies(k, 0));
+        int i = 0;
+        while (i >= 0){
+            arr.set(i, arr.get(i) + 1);
+            if (arr.get(i) > n) i--;
+            else if (i == k - 1) comb.add(new ArrayList(arr));
+            else{
+                i++;
+                arr.set(i, arr.get(i - 1));
+            }
+        }
+        return comb;        
     }
 }
