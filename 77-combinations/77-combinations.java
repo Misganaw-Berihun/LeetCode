@@ -1,19 +1,20 @@
 class Solution {
-    private List<List<Integer>> combinations = new ArrayList<List<Integer>>();
-    private void findComb(int n, int k, List<Integer> comb){
+    private static void findComb(List<List<Integer>> comb, int i, int n, int k, ArrayList<Integer> c){
         if (k == 0){
-            combinations.add(new ArrayList(comb));
+            comb.add(new ArrayList(c));
             return;
         }
         
-        for (int i = n; i >= 1; i--){
-            comb.add(i);
-            findComb(i - 1, k - 1, new ArrayList<Integer>(comb));
-            comb.remove(comb.size() - 1);
+        if (i + k -1 <= n){
+            findComb(comb, i + 1, n, k, c);
+            c.add(i);
+            findComb(comb, i + 1, n, k -1 , new ArrayList(c));
+            c.remove(c.size() - 1);
         }
     }
     public List<List<Integer>> combine(int n, int k) {
-        findComb(n, k, new ArrayList<Integer>());
-        return combinations;
+        List<List<Integer>> comb = new ArrayList<List<Integer>>();
+        findComb(comb, 1, n, k, new ArrayList<Integer>());
+        return comb;
     }
 }
