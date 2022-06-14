@@ -1,18 +1,16 @@
 class Solution {
-    public List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> res = new ArrayList<List<Integer>>();
-        res.add(new ArrayList<Integer>());
-        for (int num : nums){
-            List<List<Integer>> subsets = new ArrayList<List<Integer>>();
-            for (int i = 0; i < res.size(); i++){
-                List<Integer> list = new ArrayList<Integer>(res.get(i));
-                list.add(num);
-                subsets.add(list);
-            }
-            for(List<Integer> ls: subsets){
-                res.add(ls);
-            }
+    private static void backtrack(int [] nums, int i, List<Integer> temp, List<List<Integer>> ans){
+        if (i >= nums.length){
+            ans.add(new ArrayList(temp));
+            return;
         }
-        return res;
+        backtrack(nums, i + 1, new ArrayList<Integer>(temp), ans);
+        temp.add(nums[i]);
+        backtrack(nums, i + 1, new ArrayList(temp), ans);
+    }
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<List<Integer>>();
+        backtrack(nums, 0, new ArrayList<Integer>(), ans);
+        return ans;
     }
 }
