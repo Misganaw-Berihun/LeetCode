@@ -1,6 +1,6 @@
 class Solution {
     private List<List<Integer>> combinations = new ArrayList<List<Integer>>();
-    private void findComb(int [] candidates, int target, List<Integer> comb){
+    private void findComb(int [] candidates, int target, List<Integer> comb, int curIdx){
         if (target < 0){
             return;
         }
@@ -8,17 +8,15 @@ class Solution {
             combinations.add(new ArrayList(comb));
             return;
         }
-        for (int candidate: candidates){
-            if (comb.size() >= 1 && comb.get(comb.size() - 1) > candidate)
-                continue;
+        for (int i = curIdx; i < candidates.length ; i++){
+            int candidate = candidates[i];
             comb.add(candidate);
-            findComb(candidates, target - candidate, new ArrayList(comb));
+            findComb(candidates, target - candidate, new ArrayList(comb), i);
             comb.remove(comb.size() - 1);
         }
     }
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        Arrays.sort(candidates);
-        findComb(candidates, target, new ArrayList());
+        findComb(candidates, target, new ArrayList(), 0);
         return combinations;
     }
 }
