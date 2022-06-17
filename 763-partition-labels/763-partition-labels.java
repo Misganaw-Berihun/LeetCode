@@ -11,7 +11,6 @@ class Solution {
         for (int j = 0; j < n; j++){
             if (j > rightEnd){
                 partitions.add(rightEnd - leftEnd + 1);
-                rightEnd = j;
                 leftEnd = j;
             }
             rightEnd = Math.max(rightEnd, lastOccurence.get(s.charAt(j)));
