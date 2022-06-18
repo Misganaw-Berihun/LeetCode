@@ -2,12 +2,6 @@ class Solution {
     private static int [] dfs(Map<Integer, List<Integer>> adjList, int cur, String labels, int [] result, Set<Integer> visited){
         visited.add(cur);
         
-        if (!adjList.containsKey(cur)){
-            int [] arr = new int[26];
-            Arrays.fill(arr, 0);
-            result[cur] = ++arr[labels.charAt(cur) - 'a'];
-            return arr;
-        }
         int [] temp = new int[26];
         for (int edge : adjList.get(cur)){
             if (visited.contains(edge)) continue;
