@@ -9,7 +9,7 @@ class Solution:
             if curTime >= arrival:
                 waitingTime += curTime - arrival
             else:
-                curTime += (arrival - curTime)
+                curTime = arrival
             curTime += time
         
         return waitingTime/ n
