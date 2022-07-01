@@ -1,25 +1,16 @@
 class Solution:
-    def canPartition(self, nums: List[int]) -> bool:
-        def dp(i, part):
-            if (i, part) in memo:
-                return memo[(i, part)]
-            if part == 0:
-                return True
-            if i >= len(nums):
-                return False
-            
-            if dp(i + 1 , part - nums[i]) or dp(i + 1, part):
-                memo[(i, part)] = True
-                return True
-            memo[(i, part)] = False
-            return False
-        
-        memo = {}
+    def canPartition(self, nums: List[int]) -> bool:        
         totalSum = sum(nums)
-        if totalSum % 2 == 1:
+        if totalSum & 1 == 1:
             return False
         
         partition = totalSum // 2
-        return dp(0, partition)
+        memo = set()
+        memo.add(0)
         
+        for i in range(len(nums)):
+            possibleSums = list(memo)
+            for s in possibleSums:
+                memo.add(s + nums[i])
         
+        return partition in memo
