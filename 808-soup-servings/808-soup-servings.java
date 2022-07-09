@@ -18,7 +18,7 @@ class Solution {
     }
     public double soupServings(int n) {
         Map<String, Double> memo = new HashMap<String, Double>();
-        if (n >= 5000) return 1;
+        if (n > 4800) return 1;
         return dp(n, n, memo);
     }
 }
