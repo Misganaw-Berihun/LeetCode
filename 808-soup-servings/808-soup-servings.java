@@ -1,24 +1,26 @@
 class Solution {
-    private static double dp(int A, int B, Map<String, Double> memo){
+    private static double dp(int A, int B, double [][] memo){
         if (A <= 0 && B <= 0) return 0.5;
         if (A <= 0) return 1;
         if (B <= 0) return 0;
         
         String key = A + ":" + B;
-        if (memo.containsKey(key)) 
-            return memo.get(key);
+        if (memo[A][B] != -1) 
+            return memo[A][B];
         
         double prob = 0;
-        for (int ml = 25; ml <= 100; ml += 25){
-            prob += 0.25 * dp(A - ml, B + ml - 100, memo);
+        for (int ml = 1; ml <= 4; ml++){
+            prob += 0.25 * dp(A - ml, B + ml - 4, memo);
         }
         
-        memo.put(key, prob);
+        memo[A][B] = prob;
         return prob;
     }
     public double soupServings(int n) {
-        Map<String, Double> memo = new HashMap<String, Double>();
+        double [][]memo = new double[200][200];
+        for (double [] m: memo)
+            Arrays.fill(m, -1);
         if (n > 4800) return 1;
-        return dp(n, n, memo);
+        return dp((n + 24) / 25, (n + 24) / 25, memo);
     }
 }
