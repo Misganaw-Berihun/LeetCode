@@ -1,32 +1,27 @@
 class Solution:
-    def knightDialer(self, n: int) -> int:
-        def dp(i, j, jmps):
-            if i < 0 or j < 0 or i >= 4 or j >= 3 or \
-                (i == 3 and (j == 0 or j == 2)):
-                return 0
-            
-            if jmps == 0:
-                return 1
-            
-            if memo[i][j][jmps] != -1:
-                return memo[i][j][jmps]
-            
-            ans = 0
-            for move in moves:
-                x, y = i + move[0], j + move[1]
-                ans += dp(x, y, jmps - 1)
-            memo[i][j][jmps] = ans % 1000000007
-            return memo[i][j][jmps]
-                
-        moves = [(-2, -1), (-2, 1), (-1, -2), (-1, 2),
-                 (1, -2), (1, 2), (2, -1) , (2, 1)] 
+    def knightDialer(self, n: int) -> int:         
+        moves = [(2, 1), (2, -1), (1, 2), (1, -2),
+                 (-1, 2), (-1, -2), (-2, 1), (-2, -1)] 
         
-        memo = [[[-1 for i in range(n)] for j in range(3)] for k in range(4)]
-        ans = 0
-        for i in range(4):
-            for j in range(3):
-                if i == 3 and (j == 0 or j == 2):
-                    continue
-                ans += dp(i, j, n - 1) 
-                
-        return ans % 1000000007
+        prev = [[1 for i in range(3)] for j in range(4)]
+        cur = [[0 for i in range(3)] for j in range(4)]
+        prev[3][0] = prev[3][2] = 0
+        
+        for k in range(1, n):       
+            for i in range(4):
+                for j in range(3):
+                    if i == 3 and (j == 0 or j == 2):
+                        continue
+                    for move in moves:
+                        r, c = i + move[0], j + move[1]
+                        if (r < 0 or c < 0 or c >= 3 or r >= 4 or \
+                            (r == 3 and (c == 0 or c == 2))):
+                            continue
+                        cur[i][j] += prev[r][c]
+            prev = cur.copy()
+            cur = [[0 for i in range(3)] for j in range(4)]
+        
+        return sum([sum(prev[i]) for i in range(len(prev))]) % 1000000007
+        
+                    
+        
