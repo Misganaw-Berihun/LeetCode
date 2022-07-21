@@ -2,16 +2,16 @@ class Solution:
     def frequencySort(self, s: str) -> str:
         count = Counter(s)
         lst = []
-        ans = ""
+        ans = []
         for k, v in count.items():
             heappush(lst, (-v, k))
         
         while lst:
             top = heappop(lst)
             for i in range(-top[0]):
-                ans += top[1]
+                ans.append(top[1])
         
-        return ans
+        return ''.join(ans)
         
         
         
