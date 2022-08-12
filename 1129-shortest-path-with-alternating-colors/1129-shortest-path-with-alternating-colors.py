@@ -1,6 +1,6 @@
 class Solution:
     def shortestAlternatingPaths(self, n: int, redEdges: List[List[int]], blueEdges: List[List[int]]) -> List[int]:
-        def bfs(isRed, dest):
+        def bfs(isRed):
             queue = deque()
             visited = set([(0, isRed)])
             queue.append(0)
@@ -9,12 +9,11 @@ class Solution:
                 l = len(queue)
                 for i in range(l):
                     cur = queue.popleft()
-                    if dest == cur:
-                        if res[cur] != -1:
-                            res[cur] = min(level, res[cur])
-                        else:
-                            res[cur] = level
-                    
+                    if res[cur] != -1:
+                        res[cur] = min(level, res[cur])
+                    else:
+                        res[cur] = level
+
                     if isRed:
                         for next in blue_adjList[cur]:
                             if (next, isRed) not in visited:
@@ -41,7 +40,6 @@ class Solution:
         for start, end in blueEdges:
             blue_adjList[start].append(end)
         
-        for i in range(n):
-            bfs(False, i)
-            bfs(True, i)
+        bfs(False)
+        bfs(True)
         return res
