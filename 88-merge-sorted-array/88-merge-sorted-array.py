@@ -12,11 +12,6 @@ class Solution:
                 nums1[idx] = nums2[ptr2]
                 ptr2 -= 1
             idx -= 1
-        
-        while (ptr1 >= 0):
-            nums1[idx] = nums1[ptr1]
-            ptr1 -= 1
-            idx -= 1
             
         while (ptr2 >= 0):
             nums1[idx]  = nums2[ptr2]
