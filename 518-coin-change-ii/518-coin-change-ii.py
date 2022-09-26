@@ -6,11 +6,10 @@ class Solution:
             dp[i][0] = 1
         
         for i in range(1, N + 1):
-            for j in range(1, amount + 1):
-                if j - coins[i-1] >= 0:
-                    dp[i][j] += (dp[i][j-coins[i-1]] + dp[i-1][j])
-                else:
-                    dp[i][j] = dp[i-1][j]
-        
+            for j in range(amount + 1):
+                if j + coins[i-1] <= amount:
+                    dp[i][j + coins[i-1]] += (dp[i][j])
+                if i + 1 <= N:
+                        dp[i+1][j] = dp[i][j]
         return dp[N][amount]
         
