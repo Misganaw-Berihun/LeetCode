@@ -1,19 +1,18 @@
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
-        def dp(i, amt, memo = {}):
-            if (i, amt) in memo:
-                return memo[(i, amt)]
-            if i < 0 and amt == 0:
-                return 1
-            if i < 0:
-                return  0
-            
-            memo[(i, amt)] =  dp(i - 1, amt - nums[i]) + dp(i - 1, amt + nums[i])
-            return memo[(i, amt)]
-            
-        n = len(nums)
-        return dp(n - 1, target)
-            
-                
-            
+        s = sum(nums)
+        mx, mn = s, -1 * (s + 1)
+        N = mx - mn
+        M = len(nums)
+        inc = (s + 1)
+        dp = [[0 for i in range(N + 1 + max(nums))] for j in range(M+1)]
+        dp[0][inc] = 1
         
+        for i in range(1, M+1):
+            for j in range(mn, mx + 1):
+                dp[i][j + inc] = (dp[i-1][j-nums[i-1] + inc] + 
+                                    dp[i-1][j+nums[i-1] + inc])
+        return dp[M][target + inc]
+        
+        
+                
