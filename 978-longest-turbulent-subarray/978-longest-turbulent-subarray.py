@@ -1,22 +1,21 @@
 class Solution:
     def maxTurbulenceSize(self, arr: List[int]) -> int:
-        def cmp(a,b):
-            return (a > b) - (a < b)
-        ans = 1
-        pin = 0
-        
-        for i in range(1,len(arr)):
-            c = cmp(arr[i-1],arr[i])
-            if c ==0:
-                pin = i
-            elif i == len(arr) - 1 or c * cmp(arr[i],arr[i+1]) != -1:
-                ans = max(ans, i - pin + 1)
-                pin = i
-                
+        n = len(arr)
+    
+        left,  right,prev_com, ans = 0, 1, 0, 1
+        while right <  n:
+            if arr[right] < arr[right - 1]  and (prev_com == 0 or prev_com == 2):
+                ans = max(ans, right - left + 1)
+                prev_com = 1
+            elif arr[right] > arr[right - 1] and (prev_com == 0 or prev_com == 1):
+                ans = max(ans, right - left + 1)
+                prev_com = 2
+            else:
+                if arr[right] != arr[right - 1]:
+                    left = right - 1
+                    prev_com = 3 - prev_com
+                    continue
+                left = right
+            right += 1
         return ans
                 
-            
-            
-            
-            
-        
