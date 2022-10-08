@@ -10,15 +10,5 @@ class Solution:
             else:
                 return True
         
-        while i < len(matrix):
-            if matrix[i][0] == target:
-                return True
-            i += 1
-            
-        while j >= 0:
-            if matrix[len(matrix) - 1][j] == target:
-                return True
-            j -= 1
-        
         return False
         
