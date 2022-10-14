@@ -10,15 +10,16 @@ class Solution:
         newRoot = None
         def dfs(node):
             nonlocal newRoot
+            if not node:
+                return False
+            
             if node.val == p.val or node.val == q.val:
                 newRoot = node
                 return True
             
             left, right = None, None
-            if node.left:
-                left = dfs(node.left)
-            if node.right:
-                right = dfs(node.right)
+            left = dfs(node.left)
+            right = dfs(node.right)
             if left and right:
                 newRoot = node
                 return True
