@@ -10,10 +10,9 @@ class Solution:
             heappush(heap, -duration)
             ans += 1
             
-            while curTime > lastDay:
-                if heap:
-                    top = -heappop(heap)
-                    curTime -= top
-                    ans -= 1
+            if curTime > lastDay and heap:
+                top = -heappop(heap)
+                curTime -= top
+                ans -= 1
             
         return ans
