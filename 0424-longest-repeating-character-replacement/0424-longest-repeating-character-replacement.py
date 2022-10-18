@@ -1,22 +1,23 @@
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
-        count = [0 for i in range(26)]
-        left = 0
+        countOf = defaultdict(int)
         ans = 0
         left = 0
-        freqChar = 0
+        mxCnt, freqChar = 0, 0
         strLen = len(s)
         
         for right in range(strLen):
-            count[ord(s[right]) - 65] += 1       
-            cur_len = right - left + 1
-            
-            while left < right and cur_len - max(count) > k:
-                char_left = s[left]
-                count[ord(char_left) - 65] -= 1
+            countOf[s[right]] += 1
+            if countOf[s[right]] > mxCnt:
+                mxCnt = countOf[s[right]]
+                freqChar = s[right]
+            curLen = right - left + 1
+            charAtLeft = s[left]
+            while left < right and curLen - mxCnt > k:
+                countOf[charAtLeft] -= 1
                 left += 1
-                cur_len = right - left + 1
-            ans = max(ans, cur_len)
+                charAtLeft = s[left]
+                curLen = right - left + 1
+            ans = max(ans, curLen)
         
-        return ans  
-        
+        return ans                
