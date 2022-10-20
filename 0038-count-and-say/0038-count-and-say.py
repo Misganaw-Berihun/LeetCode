@@ -13,9 +13,9 @@ class Solution:
         return ''.join(cnt)
     
     def countAndSay(self, n: int) -> str:
-        if n == 1:
-            return "1"
+        cur = "1"
         
-        say = self.countAndSay(n - 1)
-        return self.count(say)
+        for i in range(n-1):
+            cur = self.count(cur)
         
+        return cur
