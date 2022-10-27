@@ -1,24 +1,14 @@
 class Solution:
     def checkIfPrerequisite(self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
-        def dfs(course, target):
-            nonlocal adjacencyList, memo
-            if course == target:
-                return True
+        connected = [[False]*numCourses for i in range(numCourses)]
+        
+        for i, j in prerequisites:
+            connected[i][j] = True
             
-            if (course, target) in memo:
-                return memo[(course, target)]
-            
-            for cor in adjacencyList[course]:
-                if dfs(cor, target):
-                    memo[(course, target)] = True
-                    return True
-            memo[(course, target)] = False
-            return False
         
-        memo = {}
-        adjacencyList = defaultdict(list)
-        for pre, course in prerequisites:
-            adjacencyList[pre].append(course)
+        for k in range(numCourses):
+            for i in range(numCourses):
+                for j in range(numCourses):
+                    connected[i][j] = connected[i][j] or (connected[i][k] and connected[k][j])
         
-        return [dfs(i, j) for i, j in queries]
-        
+        return [connected[i][j] for i, j in queries]
