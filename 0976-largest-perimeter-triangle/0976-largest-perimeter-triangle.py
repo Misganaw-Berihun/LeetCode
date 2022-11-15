@@ -3,9 +3,12 @@ class Solution:
         arr_len = len(nums)
         nums.sort()
         perimeter = 0
+        found = False
+        i = arr_len - 3
         
-        for i in range(arr_len - 3, -1, -1):
-            if nums[i] + nums[i+1] > nums[i+2]:
-                perimeter = max(nums[i] + nums[i+1] + nums[i+2], perimeter)
-        
+        while i >= 0 and not found:
+            if (nums[i] + nums[i+1]) > nums[i+2]:
+                perimeter = nums[i] + nums[i+1] + nums[i+2]
+                found = True
+            i -= 1
         return perimeter
