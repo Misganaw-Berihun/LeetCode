@@ -5,13 +5,15 @@ class Solution:
             return False
         s //= 2
         N = len(nums)
-        dp = [[False for i in range(s + 1)] for j in range(N + 1)]
-        dp[0][0] = True
+        dp = [False for i in range(s + 1)]
+        dp[0] = True
         
         for j in range(1, N + 1):
+            new_row = [False for i in range(s + 1)]
             for i in range(s + 1):
-                dp[j][i] = dp[j - 1][i]
+                new_row[i] = dp[i]
                 if i - nums[j - 1] >= 0:
-                    dp[j][i] = (dp[j - 1][i - nums[j - 1]] or dp[j][i])
-        return dp[N][s]
+                    new_row[i] = (dp[i - nums[j - 1]] or new_row[i])
+            dp = new_row
+        return dp[s]
                     
