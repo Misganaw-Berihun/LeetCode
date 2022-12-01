@@ -7,25 +7,22 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        newRoot = None
-        def dfs(node):
-            nonlocal newRoot
+        def lca(node):
+            nonlocal lst
             if not node:
                 return False
             
-            if node.val == p.val or node.val == q.val:
-                newRoot = node
+            left = lca(node.left)
+            right = lca(node.right)
+            cur = (node.val == p.val or node.val == q.val)
+            
+            if left + right + cur == 2:
+                lst = node
                 return True
             
-            left, right = None, None
-            left = dfs(node.left)
-            right = dfs(node.right)
-            if left and right:
-                newRoot = node
-                return True
-            if left or right:
-                return True
-            
-        dfs(root)
-        return newRoot
+            return cur or left or right
+        
+        lst = None
+        lca(root)
+        return lst
         
