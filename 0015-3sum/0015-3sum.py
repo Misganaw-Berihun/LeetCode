@@ -8,7 +8,7 @@ class Solution(object):
         output = set()
         for i in range(len(nums)):
             target = -nums[i]
-            left = 0
+            left = i + 1
             right = len(nums) - 1
             while (left < right):
                 if (i == left):
