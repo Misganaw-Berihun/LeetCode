@@ -1,27 +1,28 @@
 class Solution:
+    def binary_search(self, prefix, target):
+        left = 0
+        right = len(prefix) - 1
+        
+        while left <= right:
+            mid = left + (right - left) // 2
+            
+            if prefix[mid] <= target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        return left - 1
+        
+        
     def answerQueries(self, nums: List[int], queries: List[int]) -> List[int]:
-        '''
-            4 5 2 1
-            3 10 21
-            
-            2 1
-        '''
-        size = len(nums)
+        prefix = [0]
         nums.sort()
-        summ = sum(nums)
-        ans = []
-        
-        for query in queries:
-            ptr = size - 1
-            num_elts = size
-            cur = summ
+        for i in range(len(nums)):
+            prefix.append(prefix[-1] + nums[i])
             
-            while cur > query:
-                cur -= nums[ptr]
-                ptr -= 1
-                num_elts -= 1
+        answer = []
+        
+        for j in range(len(queries)):
+            res = self.binary_search(prefix, queries[j])
+            answer.append(res)
             
-            ans.append(num_elts)
-        
-        return ans
-        
+        return answer
