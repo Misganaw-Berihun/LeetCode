@@ -1,33 +1,48 @@
 class Solution:
-    def uniquePathsIII(self, grid: List[List[int]]) -> int:
-        visited = set()
-        n, m = len(grid), len(grid[0])
-        DIR = [(-1, 0), (1, 0), (0, -1), (0, 1)]
-        inbound = lambda r, c: 0 <= r < n and 0 <= c < m
+    def inbound(self, curX, curY):
+        valid = True
+        if curX < 0 or curX >= self.ROWS:
+            valid = False
+            
+        if curY < 0 or curY >= self.COLS:
+            valid = False
+            
+        return valid
+    
+    def backtrack(self, curX, curY, visited):
+        
+        visited.add((curX, curY))
+        if self.grid[curX][curY] == 2:
+            if len(visited) == self.NUM_CELLS:
+                return 1
+            return 0
+        
         ans = 0
-        
-        def dfs(row ,col):
-            nonlocal ans
-            visited.add((row, col))
-            if grid[row][col] == 2:
-                if len(visited) == n * m:
-                    ans += 1
-                return
-            for dx, dy in DIR:
-                nx, ny = row + dx, col + dy
+        for dx, dy in self.DIR:
+            newX, newY = curX + dx, curY + dy
+            if not self.inbound(newX, newY):
+                continue
+            
+            if (newX, newY) in visited:
+                continue
+            
+            if self.grid[newX][newY] == -1:
+                visited.add((newX, newY))
+                continue
                 
-                if not inbound(nx, ny) or (nx, ny) in visited:
-                    continue
-                
-                if grid[nx][ny] == -1:
-                    visited.add((nx, ny))
-                    continue
-                dfs(nx, ny)
-                visited.remove((nx, ny))
+            ans += self.backtrack(newX, newY, visited)
+            visited.remove((newX, newY))
+        return ans
+            
         
-        for i in range(n):
-            for j in range(m):
-                if grid[i][j] == 1:
-                    dfs(i, j)
-                    return ans
-                    
+    def uniquePathsIII(self, grid: List[List[int]]) -> int:
+        self.grid = grid
+        self.DIR = [[-1, 0], [1, 0], [0, 1], [0, -1]]
+        self.ROWS = len(grid)
+        self.COLS = len(grid[0])
+        self.NUM_CELLS = self.ROWS * self.COLS
+        
+        for i in range(self.ROWS):
+            for j in range(self.COLS):
+                if self.grid[i][j] == 1:
+                    return self.backtrack(i, j, set())
