@@ -17,8 +17,7 @@ class Solution:
             elif words[i] in match.values():
                 ok = False
                 
-            else:
-                match[char] = words[i]
+            match[char] = words[i]
              
             i += 1
         
