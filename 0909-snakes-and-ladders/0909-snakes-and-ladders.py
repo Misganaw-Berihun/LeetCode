@@ -17,13 +17,13 @@ class Solution:
     
         queue = deque()
         visited = set()
-        queue.append((1, 0, False))
+        queue.append((1, 0))
         ans = float('inf')
         while queue:
             n = len(queue)
             
             for i in range(n):
-                cur,level, last = queue.popleft()
+                cur,level = queue.popleft()
                 
                 if cur == sq:
                     ans = min(ans, level)
@@ -34,13 +34,10 @@ class Solution:
                         continue
                      
                     r, c = findIndex(val)
-                    # if last and board[r][c] != -1:
-                    #     continue
-                        
                     if board[r][c] == -1:
-                        queue.append((val, level + 1, False))
+                        queue.append((val, level + 1))
                     else:
-                        queue.append((board[r][c], level + 1, True))
+                        queue.append((board[r][c], level + 1))
                         
                     visited.add(val)
                 
