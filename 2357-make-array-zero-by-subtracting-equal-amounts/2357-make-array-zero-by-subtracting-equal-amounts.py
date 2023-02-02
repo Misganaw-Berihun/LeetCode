@@ -1,8 +1,8 @@
 class Solution:
     def minimumOperations(self, nums: List[int]) -> int:
-        count = Counter(nums)
-        n = len(count.keys())
-        if 0 in count:
+        num_set = set(nums)
+        n = len(num_set)
+        if 0 in num_set:
             return n - 1
         return n
         
