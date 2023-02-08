@@ -26,8 +26,5 @@ class Solution:
             else:
                 result.append(cur[1])
             
-            if len(result) == len(neighbours):
-                break
-            
         
         return result        
