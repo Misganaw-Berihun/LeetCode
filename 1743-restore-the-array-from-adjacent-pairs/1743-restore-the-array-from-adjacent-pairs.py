@@ -2,28 +2,32 @@ class Solution:
     def restoreArray(self, adjacentPairs: List[List[int]]) -> List[int]:
         neighbours = defaultdict(list)
         length = len(adjacentPairs) 
-        start = -1
+        
         for x, y in adjacentPairs:
             neighbours[x].append(y)
             neighbours[y].append(x)
 
         
+        result = []
         for k in neighbours:
             if len(neighbours[k]) == 1:
-                start = k
+                result.append(k)
+                result.append(neighbours[k][0])
                 break
         
-        result = []
-        result.append(start)
-        visited =set()
-        visited.add(start)
         
-        for i in range(length):
-            cur = result[-1]
+        for i in range(len(neighbours) - 2):
+            last = result[-1]
+            prev = result[-2]
             
-            for nxt in neighbours[cur]:
-                if nxt not in visited:
-                    result.append(nxt)
-                    visited.add(nxt)
+            cur = neighbours[last]
+            if cur[0] != prev:
+                result.append(cur[0])
+            else:
+                result.append(cur[1])
+            
+            if len(result) == len(neighbours):
+                break
+            
         
         return result        
