@@ -8,10 +8,10 @@ class Solution:
                 nx = i + row_shift
                 ny = j + col_shift
                 
-                if img1[i][j] == 1 and 0 <= nx < n and 0 <= ny < n:
+                if 0 <= nx < n and 0 <= ny < n:
                     pixel = img2[nx][ny]
                     
-                    if pixel == 1:
+                    if img1[i][j] == 1 and pixel == 1:
                         count += 1
         
         return count
