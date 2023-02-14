@@ -15,16 +15,7 @@ class Solution:
             self.findDigits(p, digits)
             count2 = Counter(digits)
             
-            ok = True
-            for key in count:
-                if count[key] != count2[key]:
-                    ok = False
-            
-            for key in count2:
-                if count[key] != count2[key]:
-                    ok = False
-            
-            if ok:
-                return ok
+            if count == count2:
+                return True
         
         return False
