@@ -12,17 +12,13 @@ class Solution:
             
         '''
         n = len(nums)
-        total = sum(nums)
+        right_sum = sum(nums)
         
         ans = [0 for i in range(n)]
         left_sum = 0
         for i in range(n):
-            right_sum = (total - left_sum - nums[i])
-            x = nums[i] * i
-            y = nums[i] * (n - i - 1)
-            cur_ans = x - left_sum
-            cur_ans += right_sum - y
+            ans[i] = (nums[i] * (i) - left_sum) + (right_sum - nums[i] * (n - i))  
             left_sum += nums[i]
-            ans[i] = cur_ans
+            right_sum -= nums[i]
         
         return ans
