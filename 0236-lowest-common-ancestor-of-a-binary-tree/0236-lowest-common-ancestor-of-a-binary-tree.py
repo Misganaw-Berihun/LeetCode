@@ -7,22 +7,24 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        def lca(node):
-            nonlocal lst
-            if not node:
-                return False
+        def lca(rt):
+            nonlocal node
+            if not rt:
+                return 0
             
-            left = lca(node.left)
-            right = lca(node.right)
-            cur = (node.val == p.val or node.val == q.val)
+            left = lca(rt.left)
+            right = lca(rt.right)
             
-            if left + right + cur == 2:
-                lst = node
-                return True
+            summ = left + right
+            if rt.val == p.val or rt.val == q.val:
+                summ += 1 
             
-            return cur or left or right
+            if summ == 2 and not node:
+                node = rt
+            
+            return summ
         
-        lst = None
+        node = None
         lca(root)
-        return lst
+        return node
         
