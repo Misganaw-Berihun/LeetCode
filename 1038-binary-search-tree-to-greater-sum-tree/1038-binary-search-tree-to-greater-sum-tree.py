@@ -6,16 +6,17 @@
 #         self.right = right
 class Solution:
     def bstToGst(self, root: TreeNode) -> TreeNode:
-        curSum = 0
-        def dfs(node):
-            nonlocal curSum
-            if not node:
+        def btg(cur):
+            nonlocal add
+            if not cur:
                 return
-            dfs(node.right)
-            node.val = node.val + curSum
-            curSum = node.val
-            dfs(node.left)
+            
+            btg(cur.right)
+            cur.val += add
+            add = cur.val
+            btg(cur.left)
         
-        dfs(root)
+        add = 0
+        btg(root)
         return root
         
