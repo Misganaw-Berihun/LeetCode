@@ -15,9 +15,7 @@ class Solution:
             right = lup(cur.right, cur.val)
             ans = max(left + right, ans)
             ret = 0
-            if cur.val != parent:
-                ret = 0
-            else:
+            if cur.val == parent:
                 ret = max(left, right) + 1
             return ret
         
