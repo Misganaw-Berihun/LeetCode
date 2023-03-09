@@ -1,21 +1,27 @@
+
 class Solution:
     def findKthBit(self, n: int, k: int) -> str:
-        def rec(N,K):
-            if N == 1:
-                return "0"
-
-            i = (2 ** N - 1) // 2 
-
-            if K == i:
-                return "1"
-            elif K < i:
-                return rec(N-1,K)
-            else:
-                l = 2 **N - 1
-                temp = rec(N-1,l-K-1)
-                if temp == "0":
-                    return "1"
+        def invert(s):
+            string = []
+            for i in s:
+                
+                if i == '0':
+                    string.append('1')
                 else:
-                    return "0"
+                    string.append('0')
+            return ''.join(string[::-1])
         
-        return rec(n,k-1)
+        def help(s,a,k):
+            if a == n:
+                return s[k - 1]
+            a += 1
+            temp = s
+            s = s + "1" 
+            temp2 = invert(temp)
+            s +=  temp2
+            su = help(s,a,k)
+            return su
+
+
+
+        return help("0", 1, k)
