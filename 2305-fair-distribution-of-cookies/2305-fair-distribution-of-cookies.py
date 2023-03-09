@@ -1,24 +1,23 @@
 class Solution:
-    def backtrack(self,cookies, share, cur, N, ans):
-        if cur >= N:
-            mx = -inf
-            for i in range(len(share)):
-                mx = max(share[i], mx)
-            ans[0] = min(ans[0], mx)
-            return
-        
-        for i in range(len(share)):
-            share[i] += cookies[cur]
-            self.backtrack(cookies, share, cur + 1, N , ans)
-            share[i] -= cookies[cur]
-            if share[i] == 0:
-                break
-            
     def distributeCookies(self, cookies: List[int], k: int) -> int:
-        share = [0 for i in range(k)]
-        N = len(cookies)
-        ans = [inf]
-        self.backtrack(cookies, share, 0, N, ans)
-        return ans[0]
+        def dp(idx, k_child):
+            nonlocal min_unfairness
+            if idx >= len(cookies):
+                min_unfairness = min(min_unfairness, max(k_child))
+                return 
+
+            if max(k_child) >= min_unfairness:
+                return 
+            
+            for i in range(len(k_child)):
+                k_child[i] += cookies[idx]
+                dp(idx + 1, k_child)
+                k_child[i] -= cookies[idx]
+
+        min_unfairness = float('inf')
+        cookies.sort(reverse = True)
+        dp(0, [0 for _ in range(k)])
+        return min_unfairness
+       
         
         
