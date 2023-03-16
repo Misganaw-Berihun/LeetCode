@@ -1,23 +1,19 @@
 class Solution {
 public:
-    double myPow(double x, long long n) {
-        if(n == 0){
-            return 1;
-        }
-        if(n == 1){
-            return x;
-        }
-        
-        if(n < 0){
-            return 1/ myPow(x, -1 * n);
-        }
-        else{
-            if(n%2 == 0){
-                return myPow(x * x, n/2);
+    double myPow(double x, int n) {
+        double res = 1.0;
+        double cur = x;
+        int temp = abs(n);
+        while( temp > 0){
+            if (temp & 1 == 1){
+                res *= 1.0 * cur;
             }
-            else{
-                return x * myPow(x * x, (n-1)/2);
-            }
+            cur *= cur;
+            temp >>= 1;
         }
+        if (n < 0){
+            res = 1.0 / res;
+        }
+        return res;
     }
 };
