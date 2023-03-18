@@ -28,17 +28,17 @@ class Solution:
 
         def find_lca(node, depth):
             if not node or depth == max_depth:
-                return node, depth
+                return node
 
-            left_lca, left_depth = find_lca(node.left, depth + 1)
-            right_lca, right_depth = find_lca(node.right, depth + 1)
+            left_lca = find_lca(node.left, depth + 1)
+            right_lca = find_lca(node.right, depth + 1)
 
             if left_lca and right_lca:
-                return node, depth
+                return node
             elif left_lca:
-                return left_lca, left_depth
+                return left_lca
             else:
-                return right_lca, right_depth
+                return right_lca
         
         dfs(root, 0)
-        return find_lca(root, 0)[0]
+        return find_lca(root, 0)
