@@ -1,7 +1,6 @@
 from sortedcontainers import *
 class Solution:
     def numberOfPairs(self, nums1: List[int], nums2: List[int], diff: int) -> int:
-        n  =len(nums1)
         arr = SortedList()
         ans = 0
         
