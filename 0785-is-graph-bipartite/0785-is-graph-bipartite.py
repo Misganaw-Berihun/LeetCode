@@ -1,31 +1,25 @@
 class Solution:
     def isBipartite(self, graph: List[List[int]]) -> bool:
         n = len(graph)
-        color = [0 for i in range(n)]        
-        visited = set()
-        queue = deque()
-        c = 1
+        color = [0 for i in range(n)]
+        
+        def dfs(node, cur_color):
+            if color[node] != 0 and color[node] != cur_color:
+                return False
+            
+            # print(color)
+            color[node] = cur_color
+            for nxt in graph[node]:
+                if color[nxt] != 0 and color[nxt] == cur_color:
+                    return False
+                
+                if color[nxt] == 0 and not dfs(nxt, -1 * cur_color):
+                    return False
+            
+            return True
+        
         for i in range(n):
-            if i in visited:
-                continue
-            queue.append(i)
-            visited.add(i)
-            
-            while queue:
-                sz = len(queue)
-                for j in range(sz):
-                    cur = queue.popleft()
-                    if color[cur] == -c:
-                        return False
-                    
-                    color[cur] = c 
-                    for nxt in graph[cur]:
-                        if nxt not in visited:
-                            queue.append(nxt)
-                            visited.add(nxt)
-                        else:
-                            if color[nxt] == c:
-                                return False
-                c = -c
+            if color[i] == 0 and not dfs(i, 1):
+                return False
+        
         return True
-            
