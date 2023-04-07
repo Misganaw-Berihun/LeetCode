@@ -28,8 +28,7 @@ class Solution:
                 if visited[nx][ny]:
                     continue
                 
-                if (-dx, -dy) in directions[grid[nx][ny]]:
-                    if dfs(nx, ny):
+                if (-dx, -dy) in directions[grid[nx][ny]] and dfs(nx, ny):
                         return True
             
             return False
