@@ -7,15 +7,17 @@ class Solution:
             adj_list[src].append(dest)
             adj_list[dest].append(src)
         
-        def dfs(node):
-            if node == destination:
+        stack = [source]
+        
+        while stack:
+            cur = stack.pop()
+            visited[cur] = True
+            
+            if cur == destination:
                 return True
             
-            visited[node] = True
-            for next in adj_list[node]:
-                if not visited[next] and dfs(next):
-                    return True
-            
-            return False
+            for nxt in adj_list[cur]:
+                if not visited[nxt]:
+                    stack.append(nxt)
         
-        return dfs(source)
+        return False
