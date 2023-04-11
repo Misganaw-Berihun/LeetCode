@@ -10,11 +10,7 @@ class Solution:
         
     def maxProduct(self, words: List[str]) -> int:
         arr = []
-        temp1 = 0
-        temp2 = 0
         
-        #cccce
-        #dbaaffdfa
         for word in words:
             cur_musk = self.musk(word)
             arr.append((cur_musk, len(word)))
