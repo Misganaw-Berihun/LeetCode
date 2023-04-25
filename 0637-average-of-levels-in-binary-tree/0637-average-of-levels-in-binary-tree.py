@@ -5,34 +5,46 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def bfs(self, root):
-        queue = deque()
-        queue.append(root)
-        averages = []
-
-        while queue:
-            cur_level_count = len(queue)
-            i = 0
-            total = 0
-
-            for i in range(cur_level_count):
-                curr = queue.popleft() 
-                total += curr.val
-
-                if curr.left:
-                    queue.append(curr.left)
-                if curr.right:
-                    queue.append(curr.right)
-
-            averages.append(total/cur_level_count)
-
-        return averages
-        
     def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:        
-        return self.bfs(root)
-                    
-                
-                    
+        """
+        :type root: TreeNode
+        :rtype: List[float]
+        """
+        # initialize an empty list to store the averages
+        averages = []
+        # check if the root node is None
+        if root is None:
+            return averages
+        # create a queue and add the root node
+        queue = deque([root])
+        # loop until the queue is empty
+        while queue:
+            # get the number of nodes in the current level
+            level_size = len(queue)
+            # initialize variables for sum and count of nodes
+            level_sum = 0
+            count = 0
+            # loop through all the nodes in the current level
+            for i in range(level_size):
+                # remove the first node from the queue
+                node = queue.popleft()
+                # add the node's value to the level sum
+                level_sum += node.val
+                # increment the count of nodes
+                count += 1
+                # add the node's children to the queue
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            # calculate the average for the current level and append to the averages list
+            averages.append(level_sum / count)
+        # return the averages list
+        return averages
+
+
+
+
                 
                 
                 
